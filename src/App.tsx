@@ -1,5 +1,5 @@
 import "./App.css";
-import TSGrid from "./components/ts-grid/TSGrid";
+import STGrid from "./components/ts-grid/STGrid";
 
 interface Person {
   id: number;
@@ -18,15 +18,15 @@ function App() {
   return (
     <div className="App">
       <h1>Title</h1>
-      <TSGrid
+      <STGrid<Person>
         data={data}
-        columns={[
-          { key: "id", label: "ID", render: (value) => <b>{value}</b> },
+        columnDefs={[
+          // render: (value) => <b>{value}</b>
+          { key: "id", label: "ID" },
           { key: "name", label: "Name" },
-          { key: "age", label: "Age", type: "checkbox" },
+          { key: "age", label: "Age" },
           { key: "country", label: "Country" },
         ]}
-        // onRowClick={handleRowClick}
       />
     </div>
   );
