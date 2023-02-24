@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./App.css";
+import TSGrid from "./components/ts-grid/TSGrid";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+interface Person {
+  id: number;
+  name: string;
+  age: number;
+  country: string;
 }
 
-export default App
+const data: Person[] = [
+  { id: 1, name: "John", age: 30, country: "USA" },
+  { id: 2, name: "Jane", age: 25, country: "Canada" },
+  { id: 3, name: "Bob", age: 40, country: "USA" },
+];
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Title</h1>
+      <TSGrid
+        data={data}
+        columns={[
+          { key: "id", label: "ID", render: (value) => <b>{value}</b> },
+          { key: "name", label: "Name" },
+          { key: "age", label: "Age", type: "checkbox" },
+          { key: "country", label: "Country" },
+        ]}
+        // onRowClick={handleRowClick}
+      />
+    </div>
+  );
+}
+
+export default App;
