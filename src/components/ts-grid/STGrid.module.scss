@@ -1,0 +1,40 @@
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: calc(100vw - 100px);
+  border-radius: 16px;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.table td {
+  border-bottom: 1px solid #e1e1e1;
+  padding: 12px 0;
+  text-align: left;
+}
+
+.table thead th {
+  text-align: left;
+  padding: 24px 0;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: #f9f9f9;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  flex-grow: 0;
+}
+
+.headerButton {
+  margin-left: 4px;
+  margin-top: -3px;
+  height: 30px;
+  width: 14px;
+  font-size: 30px;
+  font-weight: 100;
+}

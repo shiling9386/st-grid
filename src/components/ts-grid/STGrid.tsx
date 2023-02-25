@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { BasicRowModel, SortBy, SortByColumn, STGridProps } from "./types";
+import styles from "./STGrid.module.scss";
 
 const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
   const { data, columnDefs, multiSelect = false } = props;
@@ -33,18 +34,20 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
   }, [data, sortColumn]);
 
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th />
           {columnDefs.map((colDef) => (
             <th key={colDef.key}>
-              <button onClick={() => handleSort(colDef.key)}>
+              <div onClick={() => handleSort(colDef.key)} className={styles.header}>
                 {colDef.label}{" "}
-                {!!sortColumn &&
-                  sortColumn.field === colDef.key &&
-                  (sortColumn.sortBy === "asc" ? "▲" : "▼")}
-              </button>
+                <div className={styles.headerButton}>
+                  {!!sortColumn &&
+                    sortColumn.field === colDef.key &&
+                    (sortColumn.sortBy === "asc" ? <span>&#42780;</span> : <span>&#42779;</span>)}
+                </div>
+              </div>
             </th>
           ))}
         </tr>
