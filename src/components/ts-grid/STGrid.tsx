@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { BasicRowModel, SortBy, SortByColumn, STGridProps } from "./types";
 import styles from "./STGrid.module.scss";
+import CheckBox from "../elements/CheckBox";
+import RadioButton from "../elements/RadioButton";
 
 const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
   const { data, columnDefs, multiSelect = false } = props;
@@ -9,8 +11,12 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
   const handleSort = useCallback((columnKey: string) => {
     setSortColumn((currentSortCol) => {
       let sortBy: SortBy = "asc";
-      if (currentSortCol?.field === columnKey && currentSortCol.sortBy === "asc") {
-        sortBy = "desc";
+      if (currentSortCol?.field === columnKey) {
+        if (currentSortCol.sortBy === "asc") {
+          sortBy = "desc";
+        } else {
+          return null;
+        }
       }
       return {
         field: columnKey,
@@ -56,12 +62,7 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
         {sortedData.map((rowData) => (
           <tr key={rowData.id}>
             <td>
-              <input
-                type="checkbox"
-                onChange={(event) => {
-                  // setSelectedRows(event.target.checked ? sortedData : []);
-                }}
-              />
+              <CheckBox onSelect={() => {}} />
             </td>
             {columnDefs.map((colDef) => (
               <td key={colDef.key}>{rowData[colDef.key]}</td>
