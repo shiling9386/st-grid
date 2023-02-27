@@ -5,8 +5,9 @@ import CheckBox from "../elements/CheckBox";
 import RadioButton from "../elements/RadioButton";
 
 const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
-  const { data, columnDefs, multiSelect = false } = props;
+  const { data, columnDefs, selectionMode } = props;
   const [sortColumn, setSortColumn] = useState<SortByColumn>(null);
+  const [selectedRows, setSelectedRows] = useState<T[]>([]);
 
   const handleSort = useCallback((columnKey: string) => {
     setSortColumn((currentSortCol) => {
@@ -24,6 +25,25 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
       };
     });
   }, []);
+
+  const handleRowSelection = useCallback(
+    (rowData: T, isMultiSelect: boolean) => {
+      if (isMultiSelect) {
+        if (selectedRows.find((x) => x.id === rowData.id)) {
+          setSelectedRows((x) => x.filter((data) => data.id !== rowData.id));
+        } else {
+          setSelectedRows((x) => [...x, rowData]);
+        }
+      } else {
+        if (selectedRows[0]?.id === rowData.id) {
+          setSelectedRows([]);
+        } else {
+          setSelectedRows([rowData]);
+        }
+      }
+    },
+    [selectedRows]
+  );
 
   const sortedData: T[] = useMemo(() => {
     return !!sortColumn
@@ -43,7 +63,7 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th />
+          {!!selectionMode && <th>Selected: {selectedRows.length}</th>}
           {columnDefs.map((colDef) => (
             <th key={colDef.key}>
               <div onClick={() => handleSort(colDef.key)} className={styles.header}>
@@ -59,16 +79,31 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((rowData) => (
-          <tr key={rowData.id}>
-            <td>
-              <CheckBox onSelect={() => {}} />
-            </td>
-            {columnDefs.map((colDef) => (
-              <td key={colDef.key}>{rowData[colDef.key]}</td>
-            ))}
-          </tr>
-        ))}
+        {sortedData.map((rowData) => {
+          const selected = !!selectedRows.find((s) => s.id === rowData.id);
+          return (
+            <tr key={rowData.id} className={selected ? styles.selectedRow : undefined}>
+              {!!selectionMode && (
+                <td>
+                  {selectionMode === "multi" ? (
+                    <CheckBox
+                      checked={selected}
+                      onSelect={() => handleRowSelection(rowData, true)}
+                    />
+                  ) : (
+                    <RadioButton
+                      checked={selected}
+                      onSelect={() => handleRowSelection(rowData, false)}
+                    />
+                  )}
+                </td>
+              )}
+              {columnDefs.map((colDef) => (
+                <td key={colDef.key}>{rowData[colDef.key]}</td>
+              ))}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

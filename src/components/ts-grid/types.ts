@@ -1,7 +1,6 @@
 export interface ColumnDef {
   key: string;
   label: string;
-
 }
 
 export interface BasicRowModel {
@@ -12,11 +11,11 @@ export interface BasicRowModel {
 export interface STGridProps<T extends BasicRowModel> {
   data: T[];
   columnDefs: ColumnDef[];
-  multiSelect?: boolean;
+  selectionMode?: "single" | "multi";
 }
 
-export type SortBy = 'asc' | 'desc'
+export type SortBy = "asc" | "desc";
 export type SortByColumn = null | {
-    field: string,
-    sortBy: SortBy
-}
+  field: string;
+  sortBy: SortBy;
+};

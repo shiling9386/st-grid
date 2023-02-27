@@ -14,12 +14,22 @@
   text-align: left;
 }
 
+.table th:first-child,
+td:first-child {
+  padding-left: 16px;
+  width: 20%;
+}
+
 .table thead th {
   text-align: left;
   padding: 24px 0;
   font-weight: bold;
   text-transform: capitalize;
   background-color: #f9f9f9;
+}
+
+.selectedRow {
+  background-color: #efedfd;
 }
 
 .header {

@@ -20,6 +20,7 @@ function App() {
       <h1>Title</h1>
       <STGrid<Person>
         data={data}
+        selectionMode="multi"
         columnDefs={[
           // render: (value) => <b>{value}</b>
           { key: "id", label: "ID" },

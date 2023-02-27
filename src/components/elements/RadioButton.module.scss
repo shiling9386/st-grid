@@ -21,7 +21,7 @@
   height: 32px;
   width: 32px;
   border-radius: 50%;
-  border: 8px solid #ccc;
+  border: 1px solid #ccc;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
   margin-right: 10px;
@@ -40,8 +40,8 @@
   content: "";
   display: block;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 7px;
+  left: 7px;
   height: 16px;
   width: 16px;
   border-radius: 50%;

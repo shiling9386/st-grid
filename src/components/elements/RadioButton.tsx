@@ -2,11 +2,17 @@ import styles from "./RadioButton.module.scss";
 
 interface RadioButtonProps {
   onSelect: (selected: boolean) => void;
+  checked: boolean;
 }
-const RadioButton = ({ onSelect }: RadioButtonProps) => {
+const RadioButton = ({ onSelect, checked }: RadioButtonProps) => {
   return (
     <label className={styles.radioDonut}>
-      <input type="radio" name="radio-group" onChange={(event) => onSelect(event.target.checked)} />
+      <input
+        type="radio"
+        name="radio-group"
+        checked={checked}
+        onChange={(event) => onSelect(event.target.checked)}
+      />
       <span className={styles.donut}></span>
     </label>
   );
