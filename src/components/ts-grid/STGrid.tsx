@@ -4,7 +4,7 @@ import styles from "./STGrid.module.scss";
 import CheckBox from "../elements/CheckBox";
 import RadioButton from "../elements/RadioButton";
 
-const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
+export const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
   const { data, columnDefs, selectionMode } = props;
   const [sortColumn, setSortColumn] = useState<SortByColumn>(null);
   const [selectedRows, setSelectedRows] = useState<T[]>([]);
@@ -108,5 +108,3 @@ const STGrid = <T extends BasicRowModel>(props: STGridProps<T>) => {
     </table>
   );
 };
-
-export default STGrid;

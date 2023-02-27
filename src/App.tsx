@@ -1,5 +1,5 @@
 import "./App.css";
-import STGrid from "./components/ts-grid/STGrid";
+import { STGrid } from "./components/ts-grid/STGrid";
 
 interface Person {
   id: number;
